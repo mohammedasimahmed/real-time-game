@@ -18,13 +18,16 @@ const Canvas = ({
     }
 
     return(
+        <div className='canvCont'>
+        <input type="color" name="" id="" value={color} onChange={(e)=>setColor(e.target.value)} />
         <canvas
             width={width}
             height={height}
             onMouseDown={onCanvasMouseDown}
             style={canvasStyle}
             ref={setCanvasRef}
-        />
+            />
+        </div>
     );
 
 }
