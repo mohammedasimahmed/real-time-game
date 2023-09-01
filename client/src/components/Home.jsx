@@ -17,8 +17,6 @@ const Home = ({handleRooms
                 <input type="text" value={room} onChange={(e)=>setRoom(e.target.value)} />
                 <button type='submit'>Join Room</button>
             </form>
-            {/* <Link to="/drawingBoard"> */}
-            {/* </Link> */}
         </div>
     )
 }

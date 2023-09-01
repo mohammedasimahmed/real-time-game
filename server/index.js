@@ -28,7 +28,7 @@ io.on("connection",(socket)=>{
     })
     socket.on("leave_room",(data)=>{
         console.log("hi")
-        socket.leave("room-"+data);
+        socket.leave(data);
         console.log("left room "+data)
     })
     
