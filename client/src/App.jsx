@@ -20,6 +20,7 @@ export default function App() {
       data.prevPoint = data.point
       // console.log(data)
     })
+    socket.on("user_join",(data)=>console.log(data))
     if(localStorage.getItem("room")){
       const room = localStorage.getItem("room")
       socket.emit("some_room",room)

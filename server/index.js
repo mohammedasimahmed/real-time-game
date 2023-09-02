@@ -25,6 +25,7 @@ io.on("connection",(socket)=>{
     socket.on("some_room",(data)=>{
         socket.join(data)
         console.log("joined room "+data)
+        socket.to(data).emit("user_join","someone joined")
     })
     socket.on("leave_room",(data)=>{
         console.log("hi")
