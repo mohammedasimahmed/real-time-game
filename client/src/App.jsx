@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./App.css"
 import Canvas from "./components/Canvas"
 import { io } from "socket.io-client";
-import drawLine from './components/drawLine';
+import drawLine from './components/functions/drawLine';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
+import { handlePlayers } from './components/functions/handlePlayers';
 export default function App() {
   const [color, setColor] = useState("white")
-  // const [rooms, setRooms] = useState("")
+  // const {_,managePlayers} = handlePlayers()
+  const [players,setPlayers] = useState(["player"])
   const socket = io("http://localhost:5000")
   useEffect(() => {
     socket.on("connect", () => {
@@ -20,12 +22,14 @@ export default function App() {
       data.prevPoint = data.point
       // console.log(data)
     })
-    socket.on("user_join",(data)=>console.log(data))
-    if(localStorage.getItem("room")){
-      const room = localStorage.getItem("room")
-      socket.emit("some_room",room)
-    }
-  }, [])
+
+    socket.on("user_join", (data) => {
+      console.log(data);
+      setPlayers((prevPlayers) => [...prevPlayers, "player"]);
+    });
+    
+
+  }, [socket])
 
   function sendDrawing(ctx, point, prevPoint) {
     const room = localStorage.getItem("room")
@@ -33,16 +37,23 @@ export default function App() {
   }
 
   function handleRooms(room){
-    if(localStorage.getItem("room")){
-      const room = localStorage.getItem("room")
-      socket.emit("leave_room",room)
-      console.log("hi")
-    }
-    socket.emit("some_room",room)
+    // if(localStorage.getItem("room")){
+    //   const room = localStorage.getItem("room")
+    //   socket.emit("leave_room",room)
+    //   console.log("hi")
+    // }
+    // socket.emit("some_room",room)
     // setRooms(room)
     console.log("joining room "+room)
     localStorage.setItem("room",room)
     // navigate("/drawingBoard")
+  }
+
+  function joinOnReload(){
+    if(localStorage.getItem("room")){
+      const room = localStorage.getItem("room")
+      socket.emit("some_room",room)
+    }
   }
 
   socket.on("abc", (data) => console.log(data))
@@ -59,6 +70,8 @@ export default function App() {
         height={400}
         sendDrawing={sendDrawing}
         color={color}
+        joinOnReload={joinOnReload}
+        players={players}
         />
         } 
         />

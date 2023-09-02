@@ -1,12 +1,21 @@
-import {useOnDraw} from './Hooks';
-import drawLine from './drawLine';
+import { useEffect, useState } from 'react';
+import { useOnDraw } from './Hooks';
+import drawLine from './functions/drawLine';
+import { handlePlayers } from './functions/handlePlayers';
 
 const Canvas = ({
     width,
     height,
     sendDrawing,
-    color
+    color,
+    joinOnReload,
+    players
 }) => {
+    // const {players,_} = handlePlayers()
+    useEffect(()=>{
+        joinOnReload()
+    },[])
+
     const {
         setCanvasRef,
         onCanvasMouseDown
@@ -16,17 +25,27 @@ const Canvas = ({
         sendDrawing(ctx, point, prevPoint)
         drawLine(prevPoint, point, ctx, '#000000', 5);
     }
-
-    return(
-        <div className='canvCont'>
-        <input type="color" name="" id="" value={color} onChange={(e)=>setColor(e.target.value)} />
-        <canvas
-            width={width}
-            height={height}
-            onMouseDown={onCanvasMouseDown}
-            style={canvasStyle}
-            ref={setCanvasRef}
-            />
+    return (
+        <div className='canvPage'>
+        <div className='playerList'>
+            {
+                players.map((player,idx)=>{
+                    return(
+                        <div key={idx}>{player+idx}</div>
+                    )
+                })
+            }
+        </div>
+            <div className='canvCont'>
+                {/* <input type="color" name="" id="" value={color} onChange={(e) => setColor(e.target.value)} /> */}
+                <canvas
+                    width={width}
+                    height={height}
+                    onMouseDown={onCanvasMouseDown}
+                    style={canvasStyle}
+                    ref={setCanvasRef}
+                />
+            </div>
         </div>
     );
 

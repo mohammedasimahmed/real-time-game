@@ -4,9 +4,24 @@
 }
 
 .canvCont {
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
+  padding: 5px;
  }
+.canvPage{
+  display: flex;
+  /* justify-content: space-evenly; */
+}
+.playerList{
+  padding: 10px;
+  margin: 10px;
+}
+.playerList>div{
+  padding: 5px;
+  margin: 10px;
+}

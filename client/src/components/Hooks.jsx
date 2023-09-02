@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 
 export function useOnDraw(onDraw) {
-
+    let arr = []
     const canvasRef = useRef(null);
     const isDrawingRef = useRef(false);
     const prevPointRef = useRef(null);
@@ -40,7 +40,10 @@ export function useOnDraw(onDraw) {
                     const ctx = canvasRef.current.getContext('2d');
                     if (onDraw) onDraw(ctx, point, prevPointRef.current);
                     prevPointRef.current = point;
-                    console.log(point);
+                    arr.push(point)
+                    // console.log(point);
+                    console.log(arr.length)
+                    // console.log(arr.byteLength)
                     // console.log(ctx)
                 }
             }
