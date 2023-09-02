@@ -37,12 +37,12 @@ export default function App() {
   }
 
   function handleRooms(room){
-    // if(localStorage.getItem("room")){
-    //   const room = localStorage.getItem("room")
-    //   socket.emit("leave_room",room)
-    //   console.log("hi")
-    // }
-    // socket.emit("some_room",room)
+    if(localStorage.getItem("room")){
+      const room = localStorage.getItem("room")
+      socket.emit("leave_room",room)
+      console.log("hi")
+    }
+    socket.emit("some_room",room)
     // setRooms(room)
     console.log("joining room "+room)
     localStorage.setItem("room",room)
@@ -52,6 +52,8 @@ export default function App() {
   function joinOnReload(){
     if(localStorage.getItem("room")){
       const room = localStorage.getItem("room")
+      // socket.emit("leave_room",room)
+      console.log("hi")
       socket.emit("some_room",room)
     }
   }
