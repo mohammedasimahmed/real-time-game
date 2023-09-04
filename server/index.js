@@ -34,6 +34,19 @@ io.on("connection",(socket)=>{
         socket.leave(data);
         console.log("left room "+data)
     })
+    // socket.on("leave_room", (data) => {
+    //     const socketId = socket.id;
+    //     const rooms = Object.keys(socket.rooms);
+      
+    //     rooms.forEach((room) => {
+    //       if (room !== socketId) {
+    //         // Leave the room (excluding the socket's own ID room)
+    //         socket.leave(room);
+    //         console.log(`Left room ${room}`);
+    //       }
+    //     });
+    //   });
+      
     
 })
 app.get("/",(req,res)=>{
