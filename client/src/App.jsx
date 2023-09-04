@@ -10,6 +10,7 @@ export default function App() {
   const [color, setColor] = useState("white")
   // const {_,managePlayers} = handlePlayers()
   const [players,setPlayers] = useState(["player"])
+  const [answers,setAnswers] = useState(["football"])
   const socket = io("http://localhost:5000")
   useEffect(() => {
     socket.on("connect", () => {
@@ -74,6 +75,7 @@ export default function App() {
         color={color}
         joinOnReload={joinOnReload}
         players={players}
+        answers={answers}
         />
         } 
         />

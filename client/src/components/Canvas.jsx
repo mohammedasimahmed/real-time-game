@@ -9,12 +9,13 @@ const Canvas = ({
     sendDrawing,
     color,
     joinOnReload,
-    players
+    players,
+    answers
 }) => {
     // const {players,_} = handlePlayers()
-    useEffect(()=>{
+    useEffect(() => {
         joinOnReload()
-    },[])
+    }, [])
 
     const {
         setCanvasRef,
@@ -27,15 +28,15 @@ const Canvas = ({
     }
     return (
         <div className='canvPage'>
-        <div className='playerList'>
-            {
-                players.map((player,idx)=>{
-                    return(
-                        <div key={idx}>{player+idx}</div>
-                    )
-                })
-            }
-        </div>
+            <div className='playerList'>
+                {
+                    players.map((player, idx) => {
+                        return (
+                            <div key={idx}>{player + idx}</div>
+                        )
+                    })
+                }
+            </div>
             <div className='canvCont'>
                 {/* <input type="color" name="" id="" value={color} onChange={(e) => setColor(e.target.value)} /> */}
                 <canvas
@@ -45,6 +46,20 @@ const Canvas = ({
                     style={canvasStyle}
                     ref={setCanvasRef}
                 />
+            </div>
+            <div className='answers'>
+                <div className="answersCont">
+                    {
+                        answers.map((ans) => {
+                            return (
+                                <div>{ans}</div>
+                            )
+                        })
+                    }
+                </div>
+                <form action="">
+                    <input type="text" className='answerInput' />
+                </form>
             </div>
         </div>
     );
