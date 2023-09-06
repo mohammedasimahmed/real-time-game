@@ -17,20 +17,38 @@ export default function App() {
       console.log("Connected to socket.io server")
     })
     socket.on("receive_drawing", (data) => {
-      const canvas = document.querySelector("canvas"); // Get the canvas element
-      const ctx = canvas.getContext("2d");
-      drawLine(data.prevPoint, data.point, ctx, '#000000', 5)
-      data.prevPoint = data.point
+      if(data.prevPoint && data.point){
+        const canvas = document.querySelector("canvas"); // Get the canvas element
+        const ctx = canvas.getContext("2d");
+        drawLine(data.prevPoint, data.point, ctx, '#000000', 5)
+        data.prevPoint = data.point
+      }
+      else {
+        console.log(data);
+        let answersCont = document.querySelector(".answersCont")
+        let newDiv = document.createElement("div")
+        newDiv.textContent = data
+        answersCont.appendChild(newDiv)
+        // setAnswers((prevAns) => [...prevAns, data]);
+      }
       // console.log(data)
     })
 
     socket.on("user_join", (data) => {
       console.log(data);
-      setPlayers((prevPlayers) => [...prevPlayers, "player"]);
+      // setPlayers((prevPlayers) => [...prevPlayers, "player"]);
+      const players = document.querySelector(".playerList")
+      let newDiv = document.createElement("div")
+      newDiv.textContent="player"
+      players.appendChild(newDiv)
     });
+    // socket.on("obtainAns", (data) => {
+    //   console.log(data);
+    //   setAnswers((prevAns) => [...prevAns, data]);
+    // });
     
 
-  }, [socket])
+  }, [])
 
   function sendDrawing(ctx, point, prevPoint) {
     const room = localStorage.getItem("room")
@@ -39,14 +57,14 @@ export default function App() {
 
   function handleRooms(room){
     if(localStorage.getItem("room")){
-      const room = localStorage.getItem("room")
-      socket.emit("leave_room",room)
+      const room1 = localStorage.getItem("room")
+      socket.emit("leave_room",room1)
       console.log("hi")
+      localStorage.setItem("room",room)
     }
-    socket.emit("some_room",room)
+    // socket.emit("some_room",room)
     // setRooms(room)
-    console.log("joining room "+room)
-    localStorage.setItem("room",room)
+    // console.log("joining room "+room)
     // navigate("/drawingBoard")
   }
 
@@ -56,7 +74,17 @@ export default function App() {
       // socket.emit("leave_room",room)
       console.log("hi")
       socket.emit("some_room",room)
+      const players = document.querySelector(".playerList")
+      let newDiv = document.createElement("div")
+      newDiv.textContent="player"
+      players.appendChild(newDiv)
     }
+  }
+
+  function handleAnswers(ans){
+    const room = localStorage.getItem("room")
+    // socket.emit("leave_room",room)
+    socket.emit("send_drawing",{ans,room})
   }
 
   socket.on("abc", (data) => console.log(data))
@@ -76,6 +104,7 @@ export default function App() {
         joinOnReload={joinOnReload}
         players={players}
         answers={answers}
+        handleAnswers={handleAnswers}
         />
         } 
         />

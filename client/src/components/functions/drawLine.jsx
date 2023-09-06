@@ -9,7 +9,7 @@ export default function drawLine(
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.strokeStyle = color;
-    ctx.moveTo(start.x, start.y);
+    ctx.moveTo(start.x, start.y); 
     ctx.lineTo(end.x, end.y);
     ctx.stroke();
 
