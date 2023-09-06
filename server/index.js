@@ -14,21 +14,10 @@ const io = require("socket.io")(server,{
 
 io.on("connection",(socket)=>{
     console.log("connected with client")
-    socket.on("to_everyone",(data)=>{
-        socket.broadcast.emit("abc",data)
-    })
     socket.on("send_drawing",(data)=>{
-        // socket.broadcast.emit("receive_drawing",data)
-        // if(data.prevPoint && data.point){
             socket.to(data.room).emit("receive_drawing",data)
             console.log(data.room)
             console.log("sent data to "+data.room)
-        // }
-        // else if(data.ans){
-        //     console.log(data.room)
-        //     socket.to(data.room).emit("receive_drawing",data.ans)
-        //     console.log("sent answer to "+data.room)
-        // }
     })
     socket.on("send_ans",(data)=>{
         console.log(data.room)

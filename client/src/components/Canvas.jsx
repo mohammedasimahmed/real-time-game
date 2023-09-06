@@ -7,8 +7,14 @@ const Canvas = ({
     height,
     sendDrawing,
     joinOnReload,
-    handleAnswers
+    handleAnswers,
+    isHost,
+    answers,
+    setAnswers,
+    players,
+    setPlayers
 }) => {
+    const [msg,setMsg] = useState("")
     useEffect(() => {
         joinOnReload()
     }, [])
@@ -19,23 +25,33 @@ const Canvas = ({
     } = useOnDraw(onDraw);
 
     function onDraw(ctx, point, prevPoint) {
-        sendDrawing(ctx, point, prevPoint)
-        drawLine(prevPoint, point, ctx, '#000000', 5);
+        if(isHost){
+            sendDrawing(ctx, point, prevPoint)
+            drawLine(prevPoint, point, ctx, '#000000', 5);
+        }
     }
     function handleSubmit(e){
         e.preventDefault()
-        let msg = document.querySelector(".answerInput").value
-        let answersCont = document.querySelector(".answersCont")
-        let newDiv = document.createElement("div")
-        newDiv.textContent = msg
-        answersCont.appendChild(newDiv)
+        // let msg = document.querySelector(".answerInput").value
+        // let answersCont = document.querySelector(".answersCont")
+        // let newDiv = document.createElement("div")
+        // newDiv.textContent = msg
+        // answersCont.appendChild(newDiv)
+        setAnswers((prevAns)=>[...prevAns,msg])
         handleAnswers(msg)
-        document.querySelector(".answerInput").value = ""
+        setMsg("")
+        // document.querySelector(".answerInput").value = ""
     }
     return (
         <div className='canvPage'>
             <div className='playerList'>
-
+                {
+                    players.map((player,idx)=>{
+                        return (
+                            <div key={idx}>{player}</div>
+                        )
+                    })
+                }
             </div>
             <div className='canvCont'>
                 <canvas
@@ -48,12 +64,20 @@ const Canvas = ({
             </div>
             <div className='answers'>
                 <div className="answersCont">
-
+                    {
+                        answers.map((ans,idx)=>{
+                            return (
+                                <div key={idx}>{ans}</div>
+                            )
+                        })
+                    }
                 </div>
                 <form action="" onSubmit={(e)=>handleSubmit(e)}>
                     <input 
                     type="text" 
                     className='answerInput' 
+                    value={msg}
+                    onChange={(e)=>setMsg(e.target.value)}
                     />
                 </form>
             </div>
