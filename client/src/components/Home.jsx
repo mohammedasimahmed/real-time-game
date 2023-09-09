@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Canvas from './Canvas'
 import "../styles/login.css"
 import { Link, useNavigate } from 'react-router-dom';
 

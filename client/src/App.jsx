@@ -8,7 +8,9 @@ import Home from './components/Home';
 export default function App() {
   const [isHost,setIsHost] = useState(false)
   const [val,setVal] = useState(false)
-  const [socket,setSocket]=useState(io("http://localhost:5000"))
+  // below is an important line
+  const [socket,_]=useState(io("http://localhost:5000"))
+  
   const [answers,setAnswers] = useState([])
   const [players,setPlayers] = useState([])
   useEffect(() => {
