@@ -51,17 +51,6 @@ export function useOnDraw(onDraw) {
             window.addEventListener("mousemove", mouseMoveListener);
         }
 
-        // for(let i=0;i<40;i++){
-        //     const ctx =x canvasRef.current.getContext('2d');
-        //     if(onDraw)onDraw(ctx, {x:(10+i)*Math.floor(Math.random()*10 +1),y:(10+i)*Math.floor(Math.random()*10 +1)}, prevPointRef.current);
-        //     prevPointRef.current = {x:(10+i)*Math.floor(Math.random()*10 +1),y:(10+i)*Math.floor(Math.random()*10 +1)};
-        //     if(i==39){
-        //         isDrawingRef.current = false;
-        //         prevPointRef.current = null;
-        //         break
-        //     }
-        // }
-
         function initMouseUpListener() {
             const listener = () => {
                 isDrawingRef.current = false;

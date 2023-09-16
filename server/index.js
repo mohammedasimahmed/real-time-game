@@ -1,11 +1,13 @@
+require("dotenv").config();
 const express = require("express")
 const cors = require("cors")
 const http = require("http")
+require("./config/config.js")
 const app = express()
 const server = http.createServer(app)
 
 app.use(cors())
-// require("./socket.js")
+
 const io = require("socket.io")(server,{
     cors:{
         origin:"http://localhost:5173"
@@ -44,20 +46,7 @@ io.on("connection",(socket)=>{
     })
     socket.on("disconnect", () => {
         console.log("disconnected")
-    });
-    // socket.on("leave_room", (data) => {
-    //     const socketId = socket.id;
-    //     const rooms = Object.keys(socket.rooms);
-      
-    //     rooms.forEach((room) => {
-    //       if (room !== socketId) {
-    //         // Leave the room (excluding the socket's own ID room)
-    //         socket.leave(room);
-    //         console.log(`Left room ${room}`);
-    //       }
-    //     });
-    //   });
-      
+    });      
     
 })
 app.get("/",(req,res)=>{
