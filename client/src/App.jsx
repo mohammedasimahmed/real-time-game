@@ -57,8 +57,8 @@ export default function App() {
       const room1 = localStorage.getItem("room");
       socket.emit("leave_room", room1);
       console.log("hi");
-      localStorage.setItem("room", room);
     }
+    localStorage.setItem("room", room);
   }
 
   function joinOnReload() {
