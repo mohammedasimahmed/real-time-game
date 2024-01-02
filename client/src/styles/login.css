@@ -4,7 +4,7 @@
 }
 .backgroundLogin{
     width: 430px;
-    height: 520px;
+    height: 320px;
     position: absolute;
     transform: translate(-50%,-50%);
     left: 50%;
@@ -34,7 +34,7 @@
     bottom: -100px;
 }
 .loginForm{
-    height: 550px;
+    height: 300px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;

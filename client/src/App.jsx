@@ -3,12 +3,8 @@ import "./App.css";
 import Canvas from "./components/Canvas";
 import { io } from "socket.io-client";
 import drawLine from "./components/functions/drawLine";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 export default function App() {
   const [isHost, setIsHost] = useState(false);
@@ -80,42 +76,42 @@ export default function App() {
   }
   return (
     <>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                handleRooms={handleRooms}
-                isHost={isHost}
-                setIsHost={setIsHost}
-                val={val}
-                setVal={setVal}
-              />
-            }
-          />
-          {val && (
-            <Route
-              path="/drawingBoard"
-              element={
-                <Canvas
-                  width={700}
-                  height={400}
-                  sendDrawing={sendDrawing}
-                  joinOnReload={joinOnReload}
-                  handleAnswers={handleAnswers}
-                  isHost={isHost}
-                  answers={answers}
-                  setAnswers={setAnswers}
-                  players={players}
-                  setPlayers={setPlayers}
-                />
-              }
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              handleRooms={handleRooms}
+              isHost={isHost}
+              setIsHost={setIsHost}
+              val={val}
+              setVal={setVal}
             />
-          )}
-          <Route path="*" element={<h1>Page Not Found</h1>} />
-        </Routes>
-      </Router>
+          }
+        />
+        <Route
+          path="/drawingBoard"
+          element={
+            val ? (
+              <Canvas
+                width={700}
+                height={400}
+                sendDrawing={sendDrawing}
+                joinOnReload={joinOnReload}
+                handleAnswers={handleAnswers}
+                isHost={isHost}
+                answers={answers}
+                setAnswers={setAnswers}
+                players={players}
+                setPlayers={setPlayers}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        <Route path="*" element={<h1>Page Not Found</h1>} />
+      </Routes>
     </>
   );
 }

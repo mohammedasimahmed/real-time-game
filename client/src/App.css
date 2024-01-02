@@ -31,6 +31,7 @@
 .answersCont{
   height: 90vh;
   border: 2px solid black;
+  width: 165px;
 }
 .answersCont>div{
   padding: 5px;

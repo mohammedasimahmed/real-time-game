@@ -5,6 +5,15 @@ const http = require("http");
 // require("./config/config.js")
 const app = express();
 const server = http.createServer(app);
+const mongoose = require("mongoose");
+
+mongoose
+  .connect(
+    "mongodb+srv://mohammedasimahmed:mohammedasimahmed@cluster.j4763f2.mongodb.net/real_time_game?retryWrites=true&w=majority"
+  )
+  .then(()=>{
+    console.log("connected")
+  });
 
 app.use(cors());
 

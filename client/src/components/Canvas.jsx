@@ -45,13 +45,13 @@ const Canvas = ({
     return (
         <div className='canvPage'>
             <div className='playerList'>
-                {
+                {/* {
                     players.map((player,idx)=>{
                         return (
                             <div key={idx}>{player}</div>
                         )
                     })
-                }
+                } */}
             </div>
             <div className='canvCont'>
                 <canvas
@@ -63,6 +63,7 @@ const Canvas = ({
                 />
             </div>
             <div className='answers'>
+                <div>Live Chat</div>
                 <div className="answersCont">
                     {
                         answers.map((ans,idx)=>{
